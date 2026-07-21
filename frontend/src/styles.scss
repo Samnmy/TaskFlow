@@ -1,0 +1,272 @@
+/* ============================================
+   TaskFlow - Global Design System
+   Premium Purple/Violet Theme
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---- CSS Custom Properties ---- */
+:root {
+  /* Brand colors */
+  --color-brand-50:  #f5f3ff;
+  --color-brand-100: #ede9fe;
+  --color-brand-200: #ddd6fe;
+  --color-brand-300: #c4b5fd;
+  --color-brand-400: #a78bfa;
+  --color-brand-500: #8b5cf6;
+  --color-brand-600: #7c3aed;
+  --color-brand-700: #6d28d9;
+  --color-brand-800: #5b21b6;
+  --color-brand-900: #4c1d95;
+
+  /* Surfaces (light mode) */
+  --surface-bg:      #fafafa;
+  --surface-card:    #ffffff;
+  --surface-sidebar: #f8f7ff;
+  --surface-border:  #ede9fe;
+  --surface-muted:   #f3f4f6;
+
+  /* Text */
+  --text-primary:    #1a1a2e;
+  --text-secondary:  #6b7280;
+  --text-muted:      #9ca3af;
+
+  /* Shadows */
+  --shadow-card:     0 1px 3px rgba(0,0,0,0.06), 0 4px 24px rgba(0,0,0,0.06);
+  --shadow-hover:    0 4px 12px rgba(0,0,0,0.1), 0 8px 40px rgba(0,0,0,0.1);
+  --shadow-glow:     0 0 24px rgba(139,92,246,0.3);
+
+  /* Transitions */
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow:   400ms ease;
+
+  /* Border radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+/* Dark mode variables */
+.dark {
+  --surface-bg:      #0f0f1a;
+  --surface-card:    #16162a;
+  --surface-sidebar: #12121f;
+  --surface-border:  #2d2b55;
+  --surface-muted:   #1e1e35;
+  --text-primary:    #f1f0fe;
+  --text-secondary:  #a0a3b1;
+  --text-muted:      #6b6e82;
+  --shadow-card:     0 1px 3px rgba(0,0,0,0.3), 0 4px 24px rgba(0,0,0,0.3);
+  --shadow-hover:    0 4px 12px rgba(0,0,0,0.4), 0 8px 40px rgba(0,0,0,0.4);
+}
+
+/* ---- Base Styles ---- */
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--surface-bg);
+  color: var(--text-primary);
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-300);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-brand-500); }
+
+/* ---- Component Layer ---- */
+@layer components {
+
+  /* --- Buttons --- */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-white
+           bg-gradient-to-r from-violet-600 to-purple-600
+           hover:from-violet-700 hover:to-purple-700
+           active:scale-95
+           shadow-lg hover:shadow-glow
+           transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm
+           text-violet-700 bg-violet-50 border border-violet-200
+           hover:bg-violet-100 hover:border-violet-300
+           dark:text-violet-300 dark:bg-violet-950/40 dark:border-violet-800
+           dark:hover:bg-violet-900/60
+           active:scale-95 transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-medium text-sm
+           text-gray-600 hover:text-violet-700 hover:bg-violet-50
+           dark:text-gray-400 dark:hover:text-violet-300 dark:hover:bg-violet-950/40
+           active:scale-95 transition-all duration-200;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-white
+           bg-gradient-to-r from-red-500 to-rose-500
+           hover:from-red-600 hover:to-rose-600
+           active:scale-95 shadow-lg transition-all duration-200;
+  }
+
+  /* --- Cards --- */
+  .card {
+    @apply bg-white dark:bg-[#16162a] rounded-2xl border border-violet-100 dark:border-violet-900/40
+           shadow-card hover:shadow-card-hover transition-all duration-300;
+  }
+
+  .card-glass {
+    @apply rounded-2xl border border-white/20 dark:border-violet-900/30
+           backdrop-blur-sm
+           shadow-card;
+    background: rgba(255,255,255,0.7);
+  }
+
+  .dark .card-glass {
+    background: rgba(22,22,42,0.7);
+  }
+
+  /* --- Inputs --- */
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-violet-800/60
+           bg-white dark:bg-[#1e1e35]
+           text-gray-900 dark:text-gray-100
+           placeholder-gray-400 dark:placeholder-gray-600
+           focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent
+           transition-all duration-200 text-sm;
+  }
+
+  /* --- Badges --- */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+  }
+
+  .badge-critical { @apply badge bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400; }
+  .badge-high     { @apply badge bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400; }
+  .badge-medium   { @apply badge bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400; }
+  .badge-low      { @apply badge bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400; }
+
+  .badge-pending   { @apply badge bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400; }
+  .badge-completed { @apply badge bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400; }
+  .badge-overdue   { @apply badge bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400; }
+
+  .badge-get    { @apply badge bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-400; }
+  .badge-post   { @apply badge bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400; }
+  .badge-put    { @apply badge bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400; }
+  .badge-delete { @apply badge bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400; }
+
+  /* --- Stat Cards --- */
+  .stat-card {
+    @apply card p-6 flex flex-col gap-1 cursor-default;
+  }
+
+  /* --- Skeleton Loader --- */
+  .skeleton {
+    @apply rounded-lg bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200
+           dark:from-gray-800 dark:via-gray-700 dark:to-gray-800
+           animate-shimmer;
+    background-size: 200% 100%;
+  }
+
+  /* --- JSON viewer --- */
+  .json-key   { @apply text-violet-500 dark:text-violet-400; }
+  .json-string{ @apply text-emerald-600 dark:text-emerald-400; }
+  .json-number{ @apply text-amber-600 dark:text-amber-400; }
+  .json-bool  { @apply text-blue-600 dark:text-blue-400; }
+  .json-null  { @apply text-gray-500 dark:text-gray-500; }
+
+  /* --- Sidebar --- */
+  .sidebar-link {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
+           text-gray-600 dark:text-gray-400
+           hover:text-violet-700 dark:hover:text-violet-300
+           hover:bg-violet-50 dark:hover:bg-violet-950/40
+           transition-all duration-200 cursor-pointer;
+  }
+
+  .sidebar-link.active {
+    @apply text-violet-700 dark:text-violet-300 bg-violet-100 dark:bg-violet-950/60
+           font-semibold;
+  }
+
+  /* --- Toast Notifications --- */
+  .toast {
+    @apply fixed bottom-6 right-6 z-50 flex items-start gap-3 px-4 py-3 rounded-2xl
+           shadow-2xl border max-w-sm w-full
+           animate-slide-up;
+  }
+
+  .toast-success {
+    @apply toast bg-white dark:bg-[#16162a] border-emerald-200 dark:border-emerald-800/60;
+  }
+  .toast-error {
+    @apply toast bg-white dark:bg-[#16162a] border-red-200 dark:border-red-800/60;
+  }
+  .toast-info {
+    @apply toast bg-white dark:bg-[#16162a] border-violet-200 dark:border-violet-800/60;
+  }
+
+  /* --- Progress Bar --- */
+  .progress-bar {
+    @apply h-2 rounded-full bg-violet-200 dark:bg-violet-900/40 overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply h-full rounded-full bg-gradient-to-r from-violet-500 to-purple-500
+           transition-all duration-700 ease-out;
+  }
+
+  /* --- Console Log Entry --- */
+  .log-entry {
+    @apply flex items-start gap-3 px-4 py-3 rounded-xl border border-transparent
+           hover:border-violet-200/60 dark:hover:border-violet-800/40
+           hover:bg-violet-50/40 dark:hover:bg-violet-950/20
+           cursor-pointer transition-all duration-200 animate-fade-in;
+  }
+
+  .log-entry.selected {
+    @apply border-violet-300/60 dark:border-violet-700/40
+           bg-violet-50/60 dark:bg-violet-950/30;
+  }
+
+  /* --- Modal Overlay --- */
+  .modal-overlay {
+    @apply fixed inset-0 bg-black/40 backdrop-blur-sm z-50
+           flex items-center justify-center p-4 animate-fade-in;
+  }
+
+  .modal-panel {
+    @apply card p-6 w-full max-w-md animate-scale-in;
+  }
+}
+
+/* ---- Angular Material overrides (purple theme) ---- */
+.mat-mdc-button.mat-primary { --mdc-text-button-label-text-color: #7c3aed; }
+.mat-mdc-raised-button.mat-primary {
+  --mdc-protected-button-container-color: #7c3aed;
+  --mdc-protected-button-label-text-color: #fff;
+}
+.mat-mdc-checkbox.mat-primary { --mdc-checkbox-selected-icon-color: #7c3aed; }
+.mat-mdc-progress-bar { --mdc-linear-progress-active-indicator-color: #7c3aed; }
