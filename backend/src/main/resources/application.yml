@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/taskflow
-    username: postgres
-    password: 6466O
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/taskflow}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:6466O}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -14,9 +14,9 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 server:
-  port: 8080
+  port: ${PORT:8080}
 
 app:
   jwt:
-    secret: CambiaEsteSecretoPorUnoMuyLargoYSeguroEnProduccion2026SuperSecureAndLongEnoughForHS512TaskFlowProject
+    secret: ${JWT_SECRET:CambiaEsteSecretoPorUnoMuyLargoYSeguroEnProduccion2026SuperSecureAndLongEnoughForHS512TaskFlowProject}
     expiration-ms: 86400000 # 24 Hours
