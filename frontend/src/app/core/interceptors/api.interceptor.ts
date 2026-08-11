@@ -4,6 +4,7 @@ import { tap, catchError, throwError } from 'rxjs';
 import { AuthService }         from '../services/auth.service';
 import { ApiInspectorService } from '../services/api-inspector.service';
 import { ApiLog, HttpMethod }  from '../models/models';
+import { BACKEND_URL }         from '../config/api.config';
 
 export const apiInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
@@ -33,7 +34,7 @@ export const apiInterceptor: HttpInterceptorFn = (
         const log: ApiLog = {
           id:              crypto.randomUUID(),
           method:          authReq.method as HttpMethod,
-          endpoint:        authReq.url.replace('http://localhost:8080', ''),
+          endpoint:        authReq.url.replace(BACKEND_URL, ''),
           timestamp:       new Date(),
           responseTimeMs:  elapsed,
           statusCode:      event.status,
@@ -59,7 +60,7 @@ export const apiInterceptor: HttpInterceptorFn = (
       const log: ApiLog = {
         id:             crypto.randomUUID(),
         method:         authReq.method as HttpMethod,
-        endpoint:       authReq.url.replace('http://localhost:8080', ''),
+        endpoint:       authReq.url.replace(BACKEND_URL, ''),
         timestamp:      new Date(),
         responseTimeMs: elapsed,
         statusCode:     err.status,
@@ -79,7 +80,7 @@ export const apiInterceptor: HttpInterceptorFn = (
 };
 
 function buildMessage(method: string, url: string, status: number): string {
-  const path = url.replace('http://localhost:8080/api', '').split('?')[0];
+  const path = url.replace(`${BACKEND_URL}/api`, '').split('?')[0];
   const messages: Record<string, Record<string, string>> = {
     'POST':   { '/auth/register': 'User registered successfully', '/auth/login': 'Login successful', '/tasks': 'Task created successfully' },
     'GET':    { '/tasks': 'Tasks fetched successfully', '/profile': 'Profile loaded' },

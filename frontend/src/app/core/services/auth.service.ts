@@ -4,7 +4,9 @@ import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthResponse, User } from '../models/models';
 
-const API_BASE = 'http://localhost:8080/api';
+import { BACKEND_URL } from '../config/api.config';
+
+const API_BASE = `${BACKEND_URL}/api`;
 const TOKEN_KEY = 'tf_token';
 const USER_KEY  = 'tf_user';
 

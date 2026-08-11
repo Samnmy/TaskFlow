@@ -3,7 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Task, TaskCreatePayload, TaskUpdatePayload, DashboardStats, TaskStatus } from '../models/models';
 
-const API_BASE = 'http://localhost:8080/api';
+import { BACKEND_URL } from '../config/api.config';
+
+const API_BASE = `${BACKEND_URL}/api`;
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
